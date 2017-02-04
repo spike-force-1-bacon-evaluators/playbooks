@@ -1,0 +1,27 @@
+---
+- name: install java
+  yum:
+    name: java
+    state: present
+
+- name: add jenkins repo
+  get_url:
+    url: "{{ repo_url }}"
+    dest: "{{ repo_dest }}"
+
+- name: add jenkins repo gpg key
+  rpm_key:
+    key: "{{ repo_rpm_key }}"
+    state: present
+
+- name: install jenkins
+  yum:
+    name: jenkins
+    state: present
+
+- name: enable jenkins service
+  service:
+    name: jenkins.service
+    state: started
+    enabled: yes
+...

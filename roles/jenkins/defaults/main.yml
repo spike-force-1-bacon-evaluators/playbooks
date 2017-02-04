@@ -1,0 +1,5 @@
+---
+repo_url: http://pkg.jenkins-ci.org/redhat/jenkins.repo
+repo_dest: /etc/yum.repos.d/jenkins.repo
+repo_rpm_key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+...
