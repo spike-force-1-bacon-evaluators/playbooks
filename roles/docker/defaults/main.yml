@@ -1,0 +1,6 @@
+---
+user: jenkins
+repo_name: dockerrepo
+repo_url: https://yum.dockerproject.org/repo/main/centos/7
+repo_gpg_key: https://yum.dockerproject.org/gpg
+...

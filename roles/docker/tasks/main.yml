@@ -1,0 +1,32 @@
+---
+- name: add docker repo
+  yum_repository:
+    name: "{{ repo_name }}"
+    description: Docker Repository
+    baseurl: "{{ repo_url }}"
+    gpgkey: "{{ repo_gpg_key }}"
+    gpgcheck: yes
+
+- name: install docker
+  yum: name={{ item }} state=present
+  with_items:
+    - docker-engine
+    - python-docker-py
+
+- name: add docker group
+  group:
+    name: docker
+    state: present
+
+- name: add existing user vagrant to group docker
+  user:
+    name: "{{ user }}"
+    groups: docker
+    append: yes
+
+- name: enable docker service
+  service:
+    name: docker.service
+    state: started
+    enabled: yes
+...
