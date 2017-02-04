@@ -1,2 +1,5 @@
-# playbooks
-Ansible playbooks
+# Ansible Playbooks
+
+Available playbooks to be run by the control node:
+
+- jenkins
