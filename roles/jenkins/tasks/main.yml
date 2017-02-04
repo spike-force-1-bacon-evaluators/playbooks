@@ -24,4 +24,9 @@
     name: jenkins.service
     state: started
     enabled: yes
+
+- name: install git
+  yum:
+    name: git
+    state: present
 ...
