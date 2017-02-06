@@ -1,0 +1,58 @@
+- name: stat java setup
+  stat:
+    path: /opt/jdk-8u77-linux-x64.rpm
+  register: stat_java
+
+- name: download java 8 jdk
+  get_url:
+    url: "{{ jre_url }}"
+    dest: /opt/
+    headers: "{{ jre_cookies }}"
+    mode: 0644
+    owner: "{{ user }}"
+  when: stat_java.stat.isdir is not defined
+  register: download
+
+- name: install jdk 8
+  yum:
+    name: /opt/jdk-8u77-linux-x64.rpm
+    state: present
+  when: download
+
+- name: install unzip
+  yum:
+    name: unzip
+    state: present
+
+- name: check if install file exist
+  stat:
+    path: /home/{{ neo4j_user }}/{{ neo4j_file_name }}
+  register: install_file
+
+- name: download neo4j
+  get_url:
+    url: "{{ neo4j_url }}"
+    dest: /home/{{ neo4j_user }}/{{ neo4j_zip_file}}
+    mode: 0644
+    owner: "{{ neo4j_user }}"
+  when: install_file.stat.isdir is not defined
+  register: download
+
+- name: unzip neo4j
+  unarchive:
+    src: /home/{{ neo4j_user }}/{{ neo4j_zip_file }}
+    dest: /home/{{ neo4j_user }}/
+    owner: "{{ neo4j_user }}"
+    group: "{{ neo4j_user }}"
+    remote_src: True
+  when: download|changed
+
+- name: copy neo4j.conf
+  template:
+    src: neo4j.conf.j2
+    dest: /home/{{ neo4j_user }}/{{ neo4j_file_name }}/conf/neo4j.conf
+
+- name: start neo4j
+  become: yes
+  become_user: "{{ neo4j_user }}"
+  command: /home/{{ neo4j_user }}/{{ neo4j_file_name }}/bin/neo4j start
