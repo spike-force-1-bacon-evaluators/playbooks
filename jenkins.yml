@@ -1,7 +1,14 @@
 ---
-- hosts: ci
+- hosts: "{{ host }}"
 
   roles:
     - docker
     - jenkins
+
+  tasks:
+
+    - name: install git
+      yum:
+        name: git
+        state: present
 ...
