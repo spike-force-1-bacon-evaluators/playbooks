@@ -1,6 +1,0 @@
----
-- hosts: neo4j
-
-  roles:
-    - neo4j
-...
