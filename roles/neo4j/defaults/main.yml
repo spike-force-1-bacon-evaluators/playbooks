@@ -1,0 +1,4 @@
+---
+container_name: neo4j
+image_name: neo4j:3.1
+...

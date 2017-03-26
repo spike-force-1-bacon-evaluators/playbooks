@@ -1,0 +1,14 @@
+---
+- name: start neo4j container
+  docker_container:
+    name: "{{ container_name }}"
+    image: "{{ image_name }}"
+    state: started
+    recreate: yes
+    detach: True
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - /home/{{ ansible_user }}/neo4j-data:/data
+...
