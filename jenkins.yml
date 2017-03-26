@@ -7,6 +7,13 @@
 
   tasks:
 
+    - name: generate SSH keys
+      user:
+        name: controller
+        generate_ssh_key: yes
+        ssh_key_bits: 4096
+        ssh_key_file: /home/controller/.ssh/id_rsa
+
     - name: install git
       yum:
         name: git
