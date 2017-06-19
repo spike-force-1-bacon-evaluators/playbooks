@@ -1,0 +1,7 @@
+---
+- hosts: bacon
+
+  roles:
+    - docker
+    - neo4j
+...
